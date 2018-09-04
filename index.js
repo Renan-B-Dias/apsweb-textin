@@ -21,54 +21,23 @@ app.use(express.static('public'));
 const io = socket(server);
 
 io.on('connection', socket => {
+	socket.on('room', routePath => {
+		console.log("Did enter " + routePath);
+		socket.join(routePath);
+	});
 
+	socket.on('chat', function(data) {
+		const path = data.pathName;
+		console.log("Did send on chat " + path);
+		socket.to(path).emit('chat', data)
+	});
+
+	socket.on('typing', function(data) {
+		const path = data.pathName;	
+		socket.to(path).broadcast.emit('typing', data);
+	});
 });
-
-// io.on('connection', function(socket) {
-// 	console.log( 'User ' + socket.id + ' connected' );
-
-// 	socket.on('chat', function(data) {
-// 		console.log("Did send on chat");
-// 		console.log(data);
-// 		console.log(data.pathName);
-// 		// io.sockets.in(data.)
-// 		// io.sockets.emit('chat', data)
-
-// 		io.sockets.in(data.pathName).emit('chat', data)
-
-// 	});
-
-// 	socket.on('typing', function(data) {
-// 		console.log("Did send on typing");
-// 		socket.broadcast.emit('typing', data);
-// 	});
-// });
 
 app.use('*', function(request, response) {
-	//
-	// const ioof = io.of(request.originalUrl)
-	// const room = request.originalUrl;
-
-	// ioof.on('connection', function(socket) {
-	// 	console.log('USER DID CONNECT TO ' + room);
-
-	// 	socket.join(room);
-
-	// 	socket.on('chat', function(data) {
-	// 		console.log("ON CHAT");
-	// 		io.sockets.in(room).emit('chat', data);
-	// 	});
-
-	// 	socket.on('typing', function(data) {
-	// 		console.log("ON TYPING");
-	// 		// io.sockets.in(room).broadcast.emit('typing', data);
-	// 		socket.broadcast.emit('typing', data);
-	// 	});
-	// });
 	response.render('chat.html');
 });
-
-// // iosa.on('connection', function(socket){  
-// //     console.log('Connected to Stack Abuse namespace'):
-// // });
-
