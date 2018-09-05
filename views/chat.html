@@ -4,6 +4,7 @@
 		<title>TextIn</title>
     <link href="../public/css/chat.css" rel="stylesheet" />
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://npmcdn.com/rxjs@5.0.0-beta.1/bundles/Rx.umd.js"></script>
 	</head>
 	<body>
     <div id="mario-chate">
@@ -11,7 +12,7 @@
         <div id="output"></div>
         <div id="feedback"></div>
       </div>
-      <input id="handle" type="text", placeholder="Handle" />
+      <input id="userName" type="text", placeholder="NickName" />
       <input id="message" type="text" placeholder="Message" />
       <button id="send">Send</button>
     </div>
@@ -100,7 +101,7 @@
 
   // Query DOM
   const message = document.getElementById('message'),
-        handle = document.getElementById('handle'),
+        userName = document.getElementById('userName'),
         button = document.getElementById('send'),
         feedback = document.getElementById('feedback'),
         output = document.getElementById('output');
@@ -110,26 +111,33 @@
     socket.emit('chat', {
       pathName: pathName,
       message: message.value,
-      handle: handle.value
+      userName: userName.value
     }, socket.id);
 
     feedback.innerHTML = "";
-    output.innerHTML += '<p><strong>' + handle.value + ': </strong>' + message.value + '</p>'
+    output.innerHTML += '<p><strong>' + userName.value + ': </strong>' + message.value + '</p>'
 
     message.value = "";
   });
 
-  message.addEventListener('keypress', function() {
-    socket.emit('typing', { handleName: handle.value, pathName: pathName});
-  });
+  Rx.Observable
+    .fromEvent(message, 'input')
+    .throttleTime(5000)
+    .subscribe(() => {
+      socket.emit('typing', { userName: userName.value, pathName: pathName });
+    })
 
   // Listen to events
   socket.on('chat', function(data, id) {
     feedback.innerHTML = "";
-    output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>'
+    output.innerHTML += '<p><strong>' + data.userName + ': </strong>' + data.message + '</p>'
+  });
+
+  socket.on('clearFeedback', function() {
+    feedback.innerHTML = "";
   });
 
   socket.on('typing', function(data) {
-    feedback.innerHTML = '<p><em>' + data.handleName + ' is typing a message...</em></p>';
+    feedback.innerHTML = '<p><em>' + data.userName + ' is typing a message...</em></p>';
   });
 </script>
