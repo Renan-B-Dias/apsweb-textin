@@ -33,16 +33,20 @@ app.use(express.static('public'));
 // Socket setup
 const io = socket(server);
 io.on('connection', socket => {
-	socket.on('room', routePath => {
-		if(shouldPrintDebug) console.log("Did enter room: " + routePath);
 
-    redisClient.get(routePath, function(error, result) {
+
+	socket.on('room', routePath => {
+    const fullPath = socket.handshake.headers.referer;
+
+		if(shouldPrintDebug) console.log("Did enter room: " + fullPath);
+
+    redisClient.get(fullPath, function(error, result) {
       if(error) {
         console.log(error);
       }
 
       if(result) {
-        socket.join(routePath);
+        socket.join(fullPath);
         const chatMessages = JSON.parse(result);
 
         socket.emit('chatMessages', chatMessages);
@@ -50,11 +54,34 @@ io.on('connection', socket => {
     });
 	});
 
+  socket.on('disconnect', function(data) {
+
+    console.log(socket.handshake.headers.referer);
+
+    const fullPath = socket.handshake.headers.referer;
+
+    console.log('user disconnected');
+    redisClient.get("chatters_" + fullPath, function(error, result) {
+      console.log("HERE!!!!!!!!!!!");
+      console.log(result);
+      if(result) {
+        result--;
+
+        if(result == 0) {
+          console.log("DELETE CHAT HISTORY!!!");
+        }
+
+        redisClient.set("chatters_" + fullPath, result);
+      }
+    });
+  });
+
 	socket.on('chat', function(data) {
-		const path = data.pathName;
+		// const path = data.pathName;
+    const fullPath = socket.handshake.headers.referer;
 		if(shouldPrintDebug) console.log("User " + data.userName + " did send message");
 
-    redisClient.get(data.pathName, function(error, result) {
+    redisClient.get(fullPath, function(error, result) {
       if(error) {
         console.log(error);
       }
@@ -69,16 +96,17 @@ io.on('connection', socket => {
         chatMessages = [{ 'userName': data.userName, 'message': data.message }]
       }
 
-      redisClient.set(data.pathName, JSON.stringify(chatMessages));
+      redisClient.set(fullPath, JSON.stringify(chatMessages));
 
-      socket.to(path).emit('chat', data);
+      socket.to(fullPath).emit('chat', data);
     });
 	});
 
 	socket.on('typing', function(data) {
-		const path = data.pathName;
+		// const path = data.pathName;
+    const fullPath = socket.handshake.headers.referer;
 		if(shouldPrintDebug) console.log("User " + data.userName + " is typing");
-		socket.to(path).broadcast.emit('typing', data);
+		socket.to(fullPath).broadcast.emit('typing', data);
 	});
 
 	// socket.on('clearFeedback', path => {
