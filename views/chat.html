@@ -109,7 +109,6 @@
   // Emit event
   button.addEventListener('click', function() {
     socket.emit('chat', {
-      // pathName: pathName,
       message: message.value,
       userName: userName.value
     }, socket.id);
@@ -124,7 +123,7 @@
     .fromEvent(message, 'input')
     .throttleTime(5000)
     .subscribe(() => {
-      socket.emit('typing', { userName: userName.value/*, pathName: pathName*/ });
+      socket.emit('typing', { userName: userName.value });
     })
 
   // Listen to events

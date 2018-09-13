@@ -70,8 +70,6 @@ io.on('connection', socket => {
 
   socket.on('disconnect', function(data) {
 
-    console.log(socket.handshake.headers.referer);
-
     const fullPath = socket.handshake.headers.referer;
 
     console.log('user disconnected');
@@ -90,7 +88,6 @@ io.on('connection', socket => {
   });
 
 	socket.on('chat', function(data) {
-		// const path = data.pathName;
     const fullPath = socket.handshake.headers.referer;
 		if(shouldPrintDebug) console.log("User " + data.userName + " did send message");
 
@@ -111,14 +108,11 @@ io.on('connection', socket => {
 
       redisClient.set(fullPath, JSON.stringify(chatMessages));
 
-      console.log("HERE!!!!!!!!!!");
-
       socket.to(fullPath).emit('chat', data);
     });
 	});
 
 	socket.on('typing', function(data) {
-		// const path = data.pathName;
     const fullPath = socket.handshake.headers.referer;
 		if(shouldPrintDebug) console.log("User " + data.userName + " is typing");
 		socket.to(fullPath).broadcast.emit('typing', data);
