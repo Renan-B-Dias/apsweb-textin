@@ -16,7 +16,7 @@ const redisClient = redis.createClient(process.env.REDIS_URL || 6379);
 // App setup
 const app = express();
 
-const server = app.listen(8080, function() {
+const server = app.listen(process.env.PORT || 8080, function() {
 	console.log("Listening to request on 8080");
 });
 
