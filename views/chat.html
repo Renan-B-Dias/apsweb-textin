@@ -128,10 +128,17 @@
     })
 
   // Listen to events
-  socket.on('chat', function(data, id) {
+  socket.on('chat', function(data) {
     feedback.innerHTML = "";
     output.innerHTML += '<p><strong>' + data.userName + ': </strong>' + data.message + '</p>'
   });
+
+  socket.on('chatMessages', function(data) {
+    console.log(data);
+    data.forEach(function(element) {
+      output.innerHTML += '<p><strong>' + element.userName + ': </strong>' + element.message + '</p>'
+    })
+  })
 
   socket.on('clearFeedback', function() {
     feedback.innerHTML = "";
