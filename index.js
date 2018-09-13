@@ -8,9 +8,10 @@ const ChatsController = require('./controllers/ChatsController');
 const redis = require('redis');
 const redisClient = redis.createClient();
 
-redisClient.flushdb( function (err, succeeded) {
-  console.log(succeeded); // will be true if successfull
-});
+// Flush DB
+// redisClient.flushdb( function (err, succeeded) {
+//   console.log(succeeded); // will be true if successfull
+// });
 
 // App setup
 const app = express();
