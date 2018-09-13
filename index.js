@@ -30,10 +30,6 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(express.static('public'));
 
-// Test
-const util = require('util')
-// console.log(util.inspect(myObject, {showHidden: false, depth: null}))
-
 // Socket setup
 const io = socket(server);
 io.on('connection', socket => {
