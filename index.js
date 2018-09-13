@@ -6,7 +6,7 @@ const logger = require('morgan');
 const ChatsController = require('./controllers/ChatsController');
 
 const redis = require('redis');
-const redisClient = redis.createClient();
+const redisClient = redis.createClient(process.env.REDIS_URL || 6379);
 
 // Flush DB
 // redisClient.flushdb( function (err, succeeded) {
