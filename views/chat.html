@@ -93,11 +93,11 @@
 
 <script type="text/javascript">
   // Make connection on client (front end)
-  const pathName = document.location.pathname;
+  // const pathName = document.location.pathname;
 
   const socket = io.connect('http://localhost:8080');
 
-  socket.emit('room', pathName);
+  socket.emit('didEnterRoom', {});
 
   // Query DOM
   const message = document.getElementById('message'),
@@ -109,7 +109,7 @@
   // Emit event
   button.addEventListener('click', function() {
     socket.emit('chat', {
-      pathName: pathName,
+      // pathName: pathName,
       message: message.value,
       userName: userName.value
     }, socket.id);
@@ -124,7 +124,7 @@
     .fromEvent(message, 'input')
     .throttleTime(5000)
     .subscribe(() => {
-      socket.emit('typing', { userName: userName.value, pathName: pathName });
+      socket.emit('typing', { userName: userName.value/*, pathName: pathName*/ });
     })
 
   // Listen to events

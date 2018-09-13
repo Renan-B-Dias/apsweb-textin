@@ -35,7 +35,7 @@ const io = socket(server);
 io.on('connection', socket => {
 
 
-	socket.on('room', routePath => {
+	socket.on('didEnterRoom', routePath => {
     const fullPath = socket.handshake.headers.referer;
 
 		if(shouldPrintDebug) console.log("Did enter room: " + fullPath);
