@@ -40,6 +40,20 @@ io.on('connection', socket => {
 
 		if(shouldPrintDebug) console.log("Did enter room: " + fullPath);
 
+    redisClient.get("chatters_" + fullPath, function(error, result) {
+      if(error) {
+        console.log(error);
+      }
+
+      if(result) {
+        result++
+
+        redisClient.set("chatters_" + fullPath, result);
+      } else {
+        redisClient.set("chatters_" + fullPath, 1);
+      }
+    });
+
     redisClient.get(fullPath, function(error, result) {
       if(error) {
         console.log(error);
@@ -62,13 +76,12 @@ io.on('connection', socket => {
 
     console.log('user disconnected');
     redisClient.get("chatters_" + fullPath, function(error, result) {
-      console.log("HERE!!!!!!!!!!!");
-      console.log(result);
       if(result) {
         result--;
 
         if(result == 0) {
           console.log("DELETE CHAT HISTORY!!!");
+          redisClient.set(fullPath, null);
         }
 
         redisClient.set("chatters_" + fullPath, result);
@@ -97,6 +110,8 @@ io.on('connection', socket => {
       }
 
       redisClient.set(fullPath, JSON.stringify(chatMessages));
+
+      console.log("HERE!!!!!!!!!!");
 
       socket.to(fullPath).emit('chat', data);
     });

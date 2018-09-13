@@ -135,9 +135,11 @@
 
   socket.on('chatMessages', function(data) {
     console.log(data);
-    data.forEach(function(element) {
-      output.innerHTML += '<p><strong>' + element.userName + ': </strong>' + element.message + '</p>'
-    })
+    if(data != null) {
+      data.forEach(function(element) {
+        output.innerHTML += '<p><strong>' + element.userName + ': </strong>' + element.message + '</p>'
+      });
+    }
   })
 
   socket.on('clearFeedback', function() {
