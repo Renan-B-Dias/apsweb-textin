@@ -2,9 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const socket = require('socket.io');
 const logger = require('morgan');
+var path = require('path');
 
 // App setup
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const server = app.listen(8080, function() {
 	console.log("Listening to request on 8080");
@@ -13,12 +16,7 @@ const server = app.listen(8080, function() {
 const shouldPrintDebug = process.env.ENVIROMENT == 'development';
 
 // Static files
-app.use(express.static('public'));
 app.use(logger('dev'));
-
-app.engine('html', require('ejs').renderFile);
-
-app.use(express.static('public'));
 
 // Socket setup
 const io = socket(server);
@@ -46,6 +44,10 @@ io.on('connection', socket => {
 	// });
 });
 
-app.use('*', function(request, response) {
-	response.render('chat.html');
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+
+app.get('/', function(req, res){
+    res.render('index');
 });
