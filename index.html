@@ -5,44 +5,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Don't Text</title>
+  <title>text.in</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <style>
+    footer {
+      background-color: #222222;
+      color: #ffffff;
+      position: fixed;
+      width: 100%;
+      padding: 16px;
+    }
+    .purple-text {
+      color: #431195;
+    }
+    .purple-box {
+      background-color: #4A438E;
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 16px;
+    }
+    .container {
+      padding-top: 56px;
+      min-height: calc(100vh - 56px);
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    <h2>DON'T TEXT</h2>
-    <p>Converse com seu grupo de qualquer lugar.</p>
-  </div>
-
-  <nav>
-    <ul>
-      <li><a class="active" href="#">DON'T TEXT</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <div class="row">
-    <div class="col-sm-6">
-      x
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group col-md-12">
-        <label for="name">Nome de usuário</label>
-        <input id="name" type="text" class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+          <div class="text-center">
+              <h2 class="purple-text">text.in</h2>
+              <p>Converse com seu grupo de qualquer lugar.</p>
+            </div>
       </div>
-      <div class="form-group col-md-12">
-        <label for="room">Sala</label>
-        <input id="room" type="text">
+      <div class="col-sm-12 col-md-4">
+        <div class=" purple-box">
+            <div class="form-group">
+              <label for="name">Nome de usuário</label>
+              <input id="name" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="room">Sala</label>
+              <input id="room" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary form-group col-12">Entrar</button>
+        </div>
       </div>
-      <button type="submit" class="btn form-group col-12">Entrar</button>
     </div>
   </div>
-
+  <footer>Created by R&V</footer>
 </body>
 
 </html>
