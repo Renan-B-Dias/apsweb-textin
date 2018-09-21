@@ -49,5 +49,5 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
 app.get('/', function(req, res){
-    res.render('index');
+    res.render('chat');
 });
