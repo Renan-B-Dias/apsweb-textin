@@ -38,8 +38,9 @@
 </head>
 
 <body>
-  <nav>
-    <a href="#">text.in</a>
+  <nav class="row">
+    <a class="col-3 col-sm-3 col-md-5" href="#">text.in</a>
+    <input id="userName" type="text" class="form-control col-8 col-sm-8 col-md-6" placeholder="NickName" />
   </nav>
   <div class="container-fluid">
     <div class="chat-box">
@@ -53,7 +54,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -67,7 +68,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -95,12 +96,11 @@
     feedback = document.getElementById('feedback'),
     output = document.getElementById('output');
 
-  if (userName.value == '') {
-    $('#exampleModal').modal({
-      backdrop: 'static',
-      keyboard: false
-    })
-  }
+  // $('#exampleModal').modal({
+  //   backdrop: 'static',
+  //   keyboard: false
+  // })
+
   // Emit event
   modalButton.addEventListener('click', function () {
     if (userName.value != '') {
