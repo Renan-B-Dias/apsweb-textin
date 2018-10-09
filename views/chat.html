@@ -83,7 +83,7 @@
   // Make connection on client (front end)
   const pathName = document.location.pathname;
 
-  const socket = io.connect('http://localhost:8080');
+  const socket = io.connect('https://dry-coast-50235.herokuapp.com');
 
   socket.emit('room', pathName);
 

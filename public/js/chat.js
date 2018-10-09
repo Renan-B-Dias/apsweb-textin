@@ -1,5 +1,5 @@
 // Make connection on client (front end)
-const socket = io.connect('http://localhost:8080');
+const socket = io.connect('https://dry-coast-50235.herokuapp.com');
 
 // Query DOM
 const message = document.getElementById('message'),
