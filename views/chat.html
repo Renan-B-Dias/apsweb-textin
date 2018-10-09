@@ -87,11 +87,6 @@
 
   socket.emit('room', pathName);
 
-  $('#exampleModal').modal({
-    backdrop: 'static',
-    keyboard: false
-  })
-
   // Query DOM
   const message = document.getElementById('message'),
     userName = document.getElementById('userName'),
@@ -100,6 +95,12 @@
     feedback = document.getElementById('feedback'),
     output = document.getElementById('output');
 
+  if (userName.value == '') {
+    $('#exampleModal').modal({
+      backdrop: 'static',
+      keyboard: false
+    })
+  }
   // Emit event
   modalButton.addEventListener('click', function () {
     if (userName.value != '') {
