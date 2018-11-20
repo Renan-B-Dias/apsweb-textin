@@ -2,26 +2,28 @@
 <html>
 	<head>
 		<title>TextIn</title>
-    <link href="../public/css/chat.css" rel="stylesheet" />
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://npmcdn.com/rxjs@5.0.0-beta.1/bundles/Rx.umd.js"></script>
 	</head>
 	<body>
-    <div id="mario-chate">
-      <div id="chat-window">
-        <div id="output"></div>
-        <div id="feedback"></div>
-      </div>
-      <input id="userName" type="text", placeholder="NickName" />
-      <input id="message" type="text" placeholder="Message" />
-      <button id="send">Send</button>
+
+    <nav class="row">
+      <a href="#">text.in</a>
+      <input id="userName" type="text", placeholder="NickName">
+    </nav>
+
+    <div class="chat-box">
+      <div id="output"></div>
+      <div id="feedback"></div>
     </div>
+    <input id="message" type="text" placeholder="Message" />
+    <button id="send">Send</button>
 	</body>
 </html>
 
 <style type="text/css">
   body {
-    font-family: 'Nunito';
+    margin: 0;
   }
 
   h2 {
@@ -30,18 +32,12 @@
     color: #575ed8;
   }
 
-  #mario-chat {
+  #chat {
     max-width: 600px;
     margin: 30px auto;
     border: 1px solid #ddd;
     box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
     border-radius: 2px;
-  }
-
-  #chat-window {
-    height: 400px;
-    overflow: auto;
-    background: #f9f9f9;
   }
 
   #output p {
@@ -72,23 +68,53 @@
     box-sizing: border-box;
     background: #eee;
     border: 0;
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: calc(100% - 96px);
+    margin-left: 16px;
     background: #fff;
     border-bottom: 1px solid #eee;
-    font-family: Nunito;
     font-size: 16px;
   }
 
   button {
+    display: inline-block;
     background: #575ed8;
     color: #fff;
     font-size: 18px;
     border: 0;
     padding: 12px 0;
-    width: 100%;
+    margin-right: 16px;
+    width: 60px;
     border-radius: 0 0 2px 2px;
   }
+
+    nav {
+      padding: 16px;
+      background-color: #4A438E;
+      color: #ffffff;
+    }
+    nav a {
+      display: inline-block;
+      width: 60px;
+      color: #ffffff;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    nav input {
+      display: inline-block;
+      width: 150px;
+    }
+    nav a:hover {
+      color: #dddddd;
+      text-decoration: none;
+    }
+    .chat-box {
+      background-color: #E5DFDA;
+      height: calc(100vh - 200px);
+      padding: 8px 16px;
+      margin: 0 16px;
+      overflow: auto;
+    }
 </style>
 
 <script type="text/javascript">
