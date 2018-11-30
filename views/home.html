@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TextIn</title>
+</head>
+	<body>
+    <div>
+      <div class="left-block">
+        <h1>Text.in</h1>
+        <p>Conversar com seu grupo de qualquer lugar.</p>
+      </div>
+
+      <div class="right-block">
+        <div class="purple-box">
+          <input type="text"  id="room" placeholder="Nome da sala">
+          <a href='' onclick="this.href='chat/'+document.getElementById('room').value">Entrar</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Criado por R&V
+    </footer>
+	</body>
+</html>
+
+<style type="text/css">
+  .purple-box {
+    width: 265px;
+    background-color: #4A438E;
+    padding: 30px;
+    border-radius: 3px;
+    margin: auto;
+  }
+
+  .left-block,
+  .right-block {
+    display: inline-block;
+    width: 49.5%;
+    height: calc(100vh - 80px);
+    padding-top: 100px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .left-block,
+    .right-block {
+      padding-top: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+   }
+
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 35px 25px;
+    color: white;
+    background-color: #333;
+  }
+  body {
+    margin: 0;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    padding: 10px 20px;
+    color: #4A438E;
+  }
+
+  p {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  a {
+    text-align: center;
+    display: inline-block;
+    background: #19bdaf;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    padding: 12px;
+    width: 60px;
+    text-decoration: none;
+  }
+
+  input {
+    height: 39px;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+</style>

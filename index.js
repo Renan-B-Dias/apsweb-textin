@@ -133,4 +133,5 @@ redisClient.on('error', function(error) {
 });
 
 // Routes
-app.use('*', ChatsController.index);
+app.use('/chat', ChatsController.chat);
+app.use('*', ChatsController.home);
