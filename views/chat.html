@@ -6,18 +6,17 @@
     <script src="https://npmcdn.com/rxjs@5.0.0-beta.1/bundles/Rx.umd.js"></script>
 	</head>
 	<body>
-
     <nav class="row">
-      <a href="#">text.in</a>
-      <input id="userName" type="text", placeholder="NickName">
-    </nav>
-
-    <div class="chat-box">
-      <div id="output"></div>
-      <div id="feedback"></div>
-    </div>
-    <input id="message" type="text" placeholder="Message" />
-    <button id="send">Send</button>
+        <a href="/">text.in</a>
+        <input id="userName" type="text", placeholder="NickName">
+      </nav>
+  
+      <div class="chat-box">
+        <div id="output"></div>
+        <div id="feedback"></div>
+      </div>
+      <input id="message" type="text" placeholder="Message" />
+      <button id="send">Send</button>
 	</body>
 </html>
 
@@ -135,15 +134,17 @@
 
   // Emit event
   button.addEventListener('click', function() {
-    socket.emit('chat', {
+    if (message.value != "" && userName.value != "") {
+      socket.emit('chat', {
       message: message.value,
       userName: userName.value
     }, socket.id);
 
-    feedback.innerHTML = "";
-    output.innerHTML += '<p><strong>' + userName.value + ': </strong>' + message.value + '</p>'
+      feedback.innerHTML = "";
+      output.innerHTML += '<p><strong>' + userName.value + ': </strong>' + message.value + '</p>'
 
-    message.value = "";
+      message.value = "";
+    }
   });
 
   Rx.Observable
