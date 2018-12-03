@@ -137,3 +137,14 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 # End of https://www.gitignore.io/api/web,node,macos,sublimetext
+
+
+# Created by https://www.gitignore.io/api/redis
+# Edit at https://www.gitignore.io/?templates=redis
+
+### Redis ###
+# Ignore redis binary dump (dump.rdb) files
+
+*.rdb
+
+# End of https://www.gitignore.io/api/redis
