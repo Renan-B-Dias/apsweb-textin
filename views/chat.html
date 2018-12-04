@@ -133,6 +133,8 @@
         feedback = document.getElementById('feedback'),
         output = document.getElementById('output');
 
+        userName.value = localStorage.getItem("username");
+
   // Emit event
   button.addEventListener('click', function() {
     socket.emit('chat', {
